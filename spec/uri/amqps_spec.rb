@@ -8,145 +8,121 @@ RSpec.describe URI::AMQPS do
   context "amqps://user:pass@host:10000/vhost" do
     let(:uri) { "amqps://user:pass@host:10000/vhost" }
 
-    specify do
-      expect(subject.user).to eq("user")
-      expect(subject.password).to eq("pass")
-      expect(subject.host).to eq("host")
-      expect(subject.port).to eq(10000)
-      expect(subject.vhost).to eq("vhost")
-    end
+    its(:user) { is_expected.to eq("user") }
+    its(:password) { is_expected.to eq("pass") }
+    its(:host) { is_expected.to eq("host") }
+    its(:port) { is_expected.to eq(10000) }
+    its(:vhost) { is_expected.to eq("vhost") }
   end
 
   context "amqps://user%61:%61pass@ho%61st:10000/v%2fhost" do
     let(:uri) { "amqps://user%61:%61pass@ho%61st:10000/v%2fhost" }
 
-    specify do
-      expect(subject.user).to eq("usera")
-      expect(subject.password).to eq("apass")
-      expect(subject.host).to eq("hoast")
-      expect(subject.port).to eq(10000)
-      expect(subject.vhost).to eq("v/host")
-    end
+    its(:user) { is_expected.to eq("usera") }
+    its(:password) { is_expected.to eq("apass") }
+    its(:host) { is_expected.to eq("hoast") }
+    its(:port) { is_expected.to eq(10000) }
+    its(:vhost) { is_expected.to eq("v/host") }
   end
 
   context "amqps://" do
     let(:uri) { "amqps://" }
 
-    specify do
-      expect(subject.user).to be_nil
-      expect(subject.password).to be_nil
-      expect(subject.host).to be_nil
-      expect(subject.port).to eq(5671)
-      expect(subject.vhost).to be_nil
-    end
+    its(:user) { is_expected.to be_nil }
+    its(:password) { is_expected.to be_nil }
+    its(:host) { is_expected.to be_nil }
+    its(:port) { is_expected.to eq(5671) }
+    its(:vhost) { is_expected.to be_nil }
   end
 
   context "amqps://:@/" do
     let(:uri) { "amqps://:@/" }
 
-    specify do
-      expect(subject.user).to eq("")
-      expect(subject.password).to eq("")
-      expect(subject.host).to be_nil
-      expect(subject.port).to eq(5671)
-      expect(subject.vhost).to eq("")
-    end
+    its(:user) { is_expected.to eq("") }
+    its(:password) { is_expected.to eq("") }
+    its(:host) { is_expected.to be_nil }
+    its(:port) { is_expected.to eq(5671) }
+    its(:vhost) { is_expected.to eq("") }
   end
 
   context "amqps://user@" do
     let(:uri) { "amqps://user@" }
 
-    specify do
-      expect(subject.user).to eq("user")
-      expect(subject.password).to be_nil
-      expect(subject.host).to be_nil
-      expect(subject.port).to eq(5671)
-      expect(subject.vhost).to be_nil
-    end
+    its(:user) { is_expected.to eq("user") }
+    its(:password) { is_expected.to be_nil }
+    its(:host) { is_expected.to be_nil }
+    its(:port) { is_expected.to eq(5671) }
+    its(:vhost) { is_expected.to be_nil }
   end
 
   context "amqps://user:pass@" do
     let(:uri) { "amqps://user:pass@" }
 
-    specify do
-      expect(subject.user).to eq("user")
-      expect(subject.password).to eq("pass")
-      expect(subject.host).to be_nil
-      expect(subject.port).to eq(5671)
-      expect(subject.vhost).to be_nil
-    end
+    its(:user) { is_expected.to eq("user") }
+    its(:password) { is_expected.to eq("pass") }
+    its(:host) { is_expected.to be_nil }
+    its(:port) { is_expected.to eq(5671) }
+    its(:vhost) { is_expected.to be_nil }
   end
 
   context "amqps://host" do
     let(:uri) { "amqps://host" }
 
-    specify do
-      expect(subject.user).to be_nil
-      expect(subject.password).to be_nil
-      expect(subject.host).to eq("host")
-      expect(subject.port).to eq(5671)
-      expect(subject.vhost).to be_nil
-    end
+    its(:user) { is_expected.to be_nil }
+    its(:password) { is_expected.to be_nil }
+    its(:host) { is_expected.to eq("host") }
+    its(:port) { is_expected.to eq(5671) }
+    its(:vhost) { is_expected.to be_nil }
   end
 
   context "amqps://:10000" do
     let(:uri) { "amqps://:10000" }
 
-    specify do
-      expect(subject.user).to be_nil
-      expect(subject.password).to be_nil
-      expect(subject.host).to be_nil
-      expect(subject.port).to eq(10000)
-      expect(subject.vhost).to be_nil
-    end
+    its(:user) { is_expected.to be_nil }
+    its(:password) { is_expected.to be_nil }
+    its(:host) { is_expected.to be_nil }
+    its(:port) { is_expected.to eq(10000) }
+    its(:vhost) { is_expected.to be_nil }
   end
 
   context "amqps:///vhost" do
     let(:uri) { "amqps:///vhost" }
 
-    specify do
-      expect(subject.user).to be_nil
-      expect(subject.password).to be_nil
-      expect(subject.host).to be_nil
-      expect(subject.port).to eq(5671)
-      expect(subject.vhost).to eq("vhost")
-    end
+    its(:user) { is_expected.to be_nil }
+    its(:password) { is_expected.to be_nil }
+    its(:host) { is_expected.to be_nil }
+    its(:port) { is_expected.to eq(5671) }
+    its(:vhost) { is_expected.to eq("vhost") }
   end
 
   context "amqps://host/" do
     let(:uri) { "amqps://host/" }
 
-    specify do
-      expect(subject.user).to be_nil
-      expect(subject.password).to be_nil
-      expect(subject.host).to eq("host")
-      expect(subject.port).to eq(5671)
-      expect(subject.vhost).to eq("")
-    end
+    its(:user) { is_expected.to be_nil }
+    its(:password) { is_expected.to be_nil }
+    its(:host) { is_expected.to eq("host") }
+    its(:port) { is_expected.to eq(5671) }
+    its(:vhost) { is_expected.to eq("") }
   end
 
   context "amqps://host/%2f" do
     let(:uri) { "amqps://host/%2f" }
 
-    specify do
-      expect(subject.user).to be_nil
-      expect(subject.password).to be_nil
-      expect(subject.host).to eq("host")
-      expect(subject.port).to eq(5671)
-      expect(subject.vhost).to eq("/")
-    end
+    its(:user) { is_expected.to be_nil }
+    its(:password) { is_expected.to be_nil }
+    its(:host) { is_expected.to eq("host") }
+    its(:port) { is_expected.to eq(5671) }
+    its(:vhost) { is_expected.to eq("/") }
   end
 
   context "amqps://[::1]" do
     let(:uri) { "amqps://[::1]" }
 
-    specify do
-      expect(subject.user).to be_nil
-      expect(subject.password).to be_nil
-      expect(subject.host).to eq("[::1]")
-      expect(subject.port).to eq(5671)
-      expect(subject.vhost).to be_nil
-    end
+    its(:user) { is_expected.to be_nil }
+    its(:password) { is_expected.to be_nil }
+    its(:host) { is_expected.to eq("[::1]") }
+    its(:port) { is_expected.to eq(5671) }
+    its(:vhost) { is_expected.to be_nil }
   end
 
   context "amqps://user:pass@host:10000/vhost/hurricane" do
