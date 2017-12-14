@@ -132,4 +132,32 @@ RSpec.describe URI::AMQPS do
       expect { subject }.to raise_error(URI::InvalidComponentError, /bad vhost \(expected only leading '\/'\)/)
     end
   end
+
+  # All attributes are present
+  context "amqps://user:pass@host/vhost?heartbeat=10&connection_timeout=10000" do
+    let(:uri) { "amqps://user:pass@host/vhost?heartbeat=10&connection_timeout=100&channel_max=1000" }
+
+    its(:user) { is_expected.to eq("user") }
+    its(:password) { is_expected.to eq("pass") }
+    its(:host) { is_expected.to eq("host") }
+    its(:port) { is_expected.to eq(5671) }
+    its(:vhost) { is_expected.to eq("vhost") }
+    its(:heartbeat) { is_expected.to eq(10) }
+    its(:connection_timeout) { is_expected.to eq(100) }
+    its(:channel_max) { is_expected.to eq(1000) }
+  end
+
+  # Part of attributes are present
+  context "amqps://user:pass@host/vhost?connection_timeout=100" do
+    let(:uri) { "amqps://user:pass@host/vhost?connection_timeout=100" }
+
+    its(:user) { is_expected.to eq("user") }
+    its(:password) { is_expected.to eq("pass") }
+    its(:host) { is_expected.to eq("host") }
+    its(:port) { is_expected.to eq(5671) }
+    its(:vhost) { is_expected.to eq("vhost") }
+    its(:heartbeat) { is_expected.to be_nil }
+    its(:connection_timeout) { is_expected.to eq(100) }
+    its(:channel_max) { is_expected.to be_nil }
+  end
 end
