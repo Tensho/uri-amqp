@@ -69,7 +69,7 @@ module URI
       set_keyfile(value)
     end
 
-      # URI::AMQP doesn't have path
+    # URI::AMQP doesn't have path
     def hierarchical?
       false
     end
@@ -153,38 +153,18 @@ module URI
     end
 
     def check_vhost(value)
-      if value && !(value =~ %r{^/[^/]*$})
-        raise InvalidComponentError, "bad vhost (expected only leading \"/\"): #{value}"
-      end
+      raise InvalidComponentError, "bad vhost (expected only leading \"/\"): #{value}" if value && !(value =~ %r{^/[^/]*$})
     end
 
-    def check_verify(value)
-      if value
-        raise InvalidComponentError, "bad verify (expected only in \"amqps\" schema): #{value}"
-      end
-    end
-
-    def check_fail_if_no_peer_cert(value)
-      if value
-        raise InvalidComponentError, "bad fail_if_no_peer_cert (expected only in \"amqps\" schema): #{value}"
-      end
-    end
-
-    def check_cacertfile(value)
-      if value
-        raise InvalidComponentError, "bad cacertfile (expected only in \"amqps\" schema): #{value}"
-      end
-    end
-
-    def check_certfile(value)
-      if value
-        raise InvalidComponentError, "bad certfile (expected only in \"amqps\" schema): #{value}"
-      end
-    end
-
-    def check_keyfile(value)
-      if value
-        raise InvalidComponentError, "bad keyfile (expected only in \"amqps\" schema): #{value}"
+    %i[
+      verify
+      fail_if_no_peer_cert
+      cacertfile
+      certfile
+      keyfile
+    ].each do |tls_param|
+      define_method "check_#{tls_param}" do |value|
+        raise InvalidComponentError, "bad #{tls_param} (expected only in \"amqps\" schema): #{value}" if value
       end
     end
   end
