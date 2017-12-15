@@ -1,6 +1,8 @@
 require "uri/amqps"
 
 # https://www.rabbitmq.com/uri-spec.html
+# https://www.rabbitmq.com/uri-query-parameters.html
+# https://www.rabbitmq.com/ssl.html
 
 RSpec.describe URI::AMQPS do
   subject { URI.parse(uri) }
@@ -129,13 +131,13 @@ RSpec.describe URI::AMQPS do
     let(:uri) { "amqps://user:pass@host:10000/vhost/hurricane" }
 
     specify do
-      expect { subject }.to raise_error(URI::InvalidComponentError, /bad vhost \(expected only leading '\/'\)/)
+      expect { subject }.to raise_error(URI::InvalidComponentError, /bad vhost \(expected only leading "\/"\)/)
     end
   end
 
   # All attributes are present
-  context "amqps://user:pass@host/vhost?heartbeat=10&connection_timeout=10000" do
-    let(:uri) { "amqps://user:pass@host/vhost?heartbeat=10&connection_timeout=100&channel_max=1000" }
+  context "amqps://user:pass@host/vhost?heartbeat=10&connection_timeout=100&channel_max=1000&verify=true&fail_if_no_peer_cert=true&cacertfile=/examples/tls/cacert.pem&certfile=/examples/tls/client_cert.pem&keyfile=/examples/tls/client_key.pem" do
+    let(:uri) { "amqps://user:pass@host/vhost?heartbeat=10&connection_timeout=100&channel_max=1000&verify=true&fail_if_no_peer_cert=true&cacertfile=/examples/tls/cacert.pem&certfile=/examples/tls/client_cert.pem&keyfile=/examples/tls/client_key.pem" }
 
     its(:user) { is_expected.to eq("user") }
     its(:password) { is_expected.to eq("pass") }
@@ -145,6 +147,11 @@ RSpec.describe URI::AMQPS do
     its(:heartbeat) { is_expected.to eq(10) }
     its(:connection_timeout) { is_expected.to eq(100) }
     its(:channel_max) { is_expected.to eq(1000) }
+    its(:verify) { is_expected.to be_truthy }
+    its(:fail_if_no_peer_cert) { is_expected.to be_truthy }
+    its(:cacertfile) { is_expected.to eq("/examples/tls/cacert.pem") }
+    its(:certfile) { is_expected.to eq("/examples/tls/client_cert.pem") }
+    its(:keyfile) { is_expected.to eq("/examples/tls/client_key.pem") }
   end
 
   # Part of attributes are present
@@ -159,5 +166,10 @@ RSpec.describe URI::AMQPS do
     its(:heartbeat) { is_expected.to be_nil }
     its(:connection_timeout) { is_expected.to eq(100) }
     its(:channel_max) { is_expected.to be_nil }
+    its(:verify) { is_expected.to be_falsey }
+    its(:fail_if_no_peer_cert) { is_expected.to be_falsey }
+    its(:cacertfile) { is_expected.to be_nil }
+    its(:certfile) { is_expected.to be_nil }
+    its(:keyfile) { is_expected.to be_nil }
   end
 end

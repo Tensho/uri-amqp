@@ -1,6 +1,8 @@
 require "uri/amqp"
 
 # https://www.rabbitmq.com/uri-spec.html
+# https://www.rabbitmq.com/uri-query-parameters.html
+# https://www.rabbitmq.com/ssl.html
 
 RSpec.describe URI::AMQP do
   it "has a version number" do
@@ -129,11 +131,11 @@ RSpec.describe URI::AMQP do
     its(:vhost) { is_expected.to be_nil }
   end
 
-  context "amqp://user:pass@host:10000/vhost/hurricane" do
-    let(:uri) { "amqp://user:pass@host:10000/vhost/hurricane" }
+  context "amqp:///vhost/hurricane" do
+    let(:uri) { "amqp:///vhost/hurricane" }
 
     specify do
-      expect { subject }.to raise_error(URI::InvalidComponentError, /bad vhost \(expected only leading '\/'\)/)
+      expect { subject }.to raise_error(URI::InvalidComponentError, /bad vhost \(expected only leading "\/"\)/)
     end
   end
 
@@ -163,5 +165,58 @@ RSpec.describe URI::AMQP do
     its(:heartbeat) { is_expected.to be_nil }
     its(:connection_timeout) { is_expected.to eq(100) }
     its(:channel_max) { is_expected.to be_nil }
+  end
+
+  context "amqp://user:pass@host/vhost?connection_timeout=100" do
+    let(:uri) { "amqp://user:pass@host/vhost?connection_timeout=100" }
+
+    its(:user) { is_expected.to eq("user") }
+    its(:password) { is_expected.to eq("pass") }
+    its(:host) { is_expected.to eq("host") }
+    its(:port) { is_expected.to eq(5672) }
+    its(:vhost) { is_expected.to eq("vhost") }
+    its(:heartbeat) { is_expected.to be_nil }
+    its(:connection_timeout) { is_expected.to eq(100) }
+    its(:channel_max) { is_expected.to be_nil }
+  end
+
+  context "amqp://host?verify=true" do
+    let(:uri) { "amqp://host?verify=true" }
+
+    specify do
+      expect { subject }.to raise_error(URI::InvalidComponentError, /bad verify \(expected only in "amqps" schema\)/)
+    end
+  end
+
+  context "amqp://host?fail_if_no_peer_cert=true" do
+    let(:uri) { "amqp://host?fail_if_no_peer_cert=true" }
+
+    specify do
+      expect { subject }.to raise_error(URI::InvalidComponentError, /bad fail_if_no_peer_cert \(expected only in "amqps" schema\)/)
+    end
+  end
+
+  context "amqp://host?cacertfile=/examples/tls/cacert.pem" do
+    let(:uri) { "amqp://host?cacertfile=/examples/tls/cacert.pem" }
+
+    specify do
+      expect { subject }.to raise_error(URI::InvalidComponentError, /bad cacertfile \(expected only in "amqps" schema\)/)
+    end
+  end
+
+  context "amqp://host?certfile=/examples/tls/client_cert.pem" do
+    let(:uri) { "amqp://host?certfile=/examples/tls/client_cert.pem" }
+
+    specify do
+      expect { subject }.to raise_error(URI::InvalidComponentError, /bad certfile \(expected only in "amqps" schema\)/)
+    end
+  end
+
+  context "amqp://host?keyfile=/examples/tls/client_key.pem" do
+    let(:uri) { "amqp://host?keyfile=/examples/tls/client_key.pem" }
+
+    specify do
+      expect { subject }.to raise_error(URI::InvalidComponentError, /bad keyfile \(expected only in "amqps" schema\)/)
+    end
   end
 end
