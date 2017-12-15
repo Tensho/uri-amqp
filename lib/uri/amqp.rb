@@ -10,12 +10,7 @@ module URI
       scheme
       userinfo host port
       vhost
-      heartbeat
-      connection_timeout
-      channel_max
-      verify
-      fail_if_no_peer_cert
-      cacertfile
+      query
     ].freeze
 
     def initialize(*arg)
