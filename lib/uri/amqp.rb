@@ -3,7 +3,7 @@ require "uri/generic"
 
 module URI
   class AMQP < Generic
-    VERSION = "1.0.0"
+    VERSION = "1.0.1"
 
     DEFAULT_PORT = 5672
 
