@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/uri-amqp.svg)](https://badge.fury.io/rb/uri-amqp)
+
 # URI::AMQP
 
 [Custom URI](https://ruby-doc.org/stdlib-2.4.2/libdoc/uri/rdoc/URI.html#module-URI-label-Adding+custom+URIs) implementation for AMQP  
