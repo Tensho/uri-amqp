@@ -68,9 +68,9 @@ uri = URI.parse("amqp://host/vhost?certfile=/examples/tls/client_cert.pem&keyfil
 
 ### References
 
-# https://www.rabbitmq.com/uri-spec.html
-# https://www.rabbitmq.com/uri-query-parameters.html
-# https://www.rabbitmq.com/ssl.html
+- https://www.rabbitmq.com/uri-spec.html
+- https://www.rabbitmq.com/uri-query-parameters.html
+- https://www.rabbitmq.com/ssl.html
 
 ## Development
 
