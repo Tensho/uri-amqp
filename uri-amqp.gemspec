@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["andrew.babichev@gmail.com"]
 
   spec.summary       = %q{URI::AMQP}
-  spec.description   = %q{AMQP URI}
+  spec.description   = %q{URI stdlib module extension for AMQP}
   spec.homepage      = "https://github.com/Tensho/uri-amqp"
   spec.license       = "MIT"
 
