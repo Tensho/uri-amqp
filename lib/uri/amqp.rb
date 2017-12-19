@@ -1,3 +1,4 @@
+require "cgi"
 require "uri/generic"
 
 module URI
@@ -135,6 +136,7 @@ module URI
     def parse_query
       return if @query.nil?
 
+      # CONSIDER: CGI::parse(@query)
       params = Hash[@query.scan(/(.+?)=([^&]+)&*/)]
 
       self.heartbeat = params["heartbeat"]
