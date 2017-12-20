@@ -1,4 +1,5 @@
 [![Gem Version](https://badge.fury.io/rb/uri-amqp.svg)](https://badge.fury.io/rb/uri-amqp)
+[![Build Status](https://travis-ci.org/Tensho/uri-amqp.svg?branch=master)](https://travis-ci.org/Tensho/uri-amqp)
 
 # URI::AMQP
 
