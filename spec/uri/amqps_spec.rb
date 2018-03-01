@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "uri/amqps"
 
 # https://www.rabbitmq.com/uri-spec.html
