@@ -29,45 +29,45 @@ Or install it yourself as:
 As any other URI (HTTP, FTP, LDAP) you may call `URI.parse` with string argument and it will automatically detect scheme and return `URI::AMQP` or `URI::AMQPS` instance.
 
 ```ruby
-uri = URI.parse("amqps://user:pass@host/vhost?heartbeat=10&connection_timeout=100&channel_max=1000&certfile=/examples/tls/client_cert.pem&keyfile=/examples/tls/client_key.pem")
+> uri = URI.parse("amqps://user:pass@host/vhost?heartbeat=10&connection_timeout=100&channel_max=1000&certfile=/examples/tls/client_cert.pem&keyfile=/examples/tls/client_key.pem")
 => #<URI::AMQPS amqps://user:pass@host/vhost?heartbeat=10&connection_timeout=100&channel_max=1000&certfile=/examples/tls/client_cert.pem&keyfile=/examples/tls/client_key.pem>
-uri.scheme
+> uri.scheme
 => "amqp"
-uri.user
+> uri.user
 => "user"
-uri.password
+> uri.password
 => "pass"
-uri.host
+> uri.host
 => "host"
-uri.vhost
+> uri.vhost
 => "vhost"
-uri.vhost
+> uri.vhost
 => "vhost"
-uri.heartbeat
+> uri.heartbeat
 => 10
-uri.connection_timeout
+> uri.connection_timeout
 => 100
-uri.channel_max
+> uri.channel_max
 => 1000
-uri.verify
+> uri.verify
 => false
-uri.fail_if_no_peer_cert
+> uri.fail_if_no_peer_cert
 => false
-uri.cacertfile
+> uri.cacertfile
 => nil
-uri.certfile 
+> uri.certfile 
 => "/examples/tls/client_cert.pem"
-uri.keyfile
+> uri.keyfile
 => "/examples/tls/client_key.pem"
 ```
 
 There are also implemented some checks:
 
-```
-uri = URI.parse("amqp://host/vhost/hurricane")
+```ruby
+> URI.parse("amqp://host/vhost/hurricane")
 => URI::InvalidComponentError: bad vhost (expected only leading "/"): /vhost/hurricane
 
-uri = URI.parse("amqp://host/vhost?certfile=/examples/tls/client_cert.pem&keyfile=/examples/tls/client_key.pem")
+> URI.parse("amqp://host/vhost?certfile=/examples/tls/client_cert.pem&keyfile=/examples/tls/client_key.pem")
 => URI::InvalidComponentError: bad certfile (expected only in "amqps" schema): /examples/tls/client_cert.pem
 ``` 
 
@@ -87,7 +87,7 @@ Run `bundle exec rubocop` before PR opening.
 
 ## Testing
 
-    rake
+    $ rake
 
 ## Contributing
 
