@@ -5,7 +5,7 @@ require "uri/generic"
 
 module URI
   class AMQP < Generic
-    VERSION = "1.0.1"
+    VERSION = '1.0.1'.freeze
 
     DEFAULT_PORT = 5672
 
