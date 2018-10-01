@@ -1,0 +1,10 @@
+inherit_from: .rubocop_todo.yml
+
+Style/StringLiterals:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
