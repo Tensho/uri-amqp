@@ -8,8 +8,6 @@ require "uri/generic"
 # https://www.rabbitmq.com/uri-query-parameters.html
 module URI
   class AMQP < Generic
-    VERSION = '1.0.1'
-
     DEFAULT_PORT = 5672
 
     COMPONENT = %i[
