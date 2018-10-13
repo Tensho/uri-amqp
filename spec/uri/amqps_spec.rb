@@ -2,10 +2,6 @@
 
 require "uri/amqps"
 
-# https://www.rabbitmq.com/uri-spec.html
-# https://www.rabbitmq.com/uri-query-parameters.html
-# https://www.rabbitmq.com/ssl.html
-
 RSpec.describe URI::AMQPS do
   subject { URI.parse(uri) }
 
@@ -15,7 +11,7 @@ RSpec.describe URI::AMQPS do
     its(:user) { is_expected.to eq("user") }
     its(:password) { is_expected.to eq("pass") }
     its(:host) { is_expected.to eq("host") }
-    its(:port) { is_expected.to eq(10000) }
+    its(:port) { is_expected.to eq(10_000) }
     its(:vhost) { is_expected.to eq("vhost") }
   end
 
@@ -25,7 +21,7 @@ RSpec.describe URI::AMQPS do
     its(:user) { is_expected.to eq("usera") }
     its(:password) { is_expected.to eq("apass") }
     its(:host) { is_expected.to eq("hoast") }
-    its(:port) { is_expected.to eq(10000) }
+    its(:port) { is_expected.to eq(10_000) }
     its(:vhost) { is_expected.to eq("v/host") }
   end
 
@@ -85,7 +81,7 @@ RSpec.describe URI::AMQPS do
     its(:user) { is_expected.to be_nil }
     its(:password) { is_expected.to be_nil }
     its(:host) { is_expected.to be_nil }
-    its(:port) { is_expected.to eq(10000) }
+    its(:port) { is_expected.to eq(10_000) }
     its(:vhost) { is_expected.to be_nil }
   end
 
@@ -133,7 +129,7 @@ RSpec.describe URI::AMQPS do
     let(:uri) { "amqps://user:pass@host:10000/vhost/hurricane" }
 
     specify do
-      expect { subject }.to raise_error(URI::InvalidComponentError, /bad vhost \(expected only leading "\/"\)/)
+      expect { subject }.to raise_error(URI::InvalidComponentError, %r{bad vhost \(expected only leading "/"\)})
     end
   end
 

@@ -1,10 +1,20 @@
-inherit_from: .rubocop_todo.yml
+AllCops:
+  TargetRubyVersion: 2.3
 
 Style/StringLiterals:
   Enabled: false
 
-Metrics/LineLength:
+Style/Documentation:
   Enabled: false
 
+Naming/AccessorMethodName:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 200
+
 Metrics/BlockLength:
+  Enabled: false
+
+Metrics/LineLength:
   Enabled: false

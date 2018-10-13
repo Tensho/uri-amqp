@@ -3,9 +3,12 @@
 require "cgi"
 require "uri/generic"
 
+# https://www.rabbitmq.com/protocol.html
+# https://www.rabbitmq.com/uri-spec.html
+# https://www.rabbitmq.com/uri-query-parameters.html
 module URI
   class AMQP < Generic
-    VERSION = '1.0.1'.freeze
+    VERSION = '1.0.1'
 
     DEFAULT_PORT = 5672
 
@@ -75,44 +78,41 @@ module URI
     protected
 
     def set_userinfo(user, password = nil)
-      user &&= CGI::unescape(user)
-      password &&= CGI::unescape(password)
+      user &&= CGI.unescape(user)
+      password &&= CGI.unescape(password)
       super(user, password)
     end
 
     def set_user(value)
-      super(value && CGI::unescape(value))
+      super(value && CGI.unescape(value))
     end
 
     def set_host(value)
-      super(value && CGI::unescape(value))
+      super(value && CGI.unescape(value))
     end
 
     def set_vhost(value)
-      @vhost = if value
-        value.delete!('/')
-        CGI::unescape(value)
-      end
+      @vhost = value && CGI.unescape(value.delete('/'))
     end
 
     def set_heartbeat(value)
-      @heartbeat = value && value.to_i
+      @heartbeat = value&.to_i
     end
 
     def set_connection_timeout(value)
-      @connection_timeout = value && value.to_i
+      @connection_timeout = value&.to_i
     end
 
     def set_channel_max(value)
-      @channel_max = value && value.to_i
+      @channel_max = value&.to_i
     end
 
     def set_verify(value)
-      @verify = !!(value)
+      @verify = !value.nil?
     end
 
     def set_fail_if_no_peer_cert(value)
-      @fail_if_no_peer_cert = !!(value)
+      @fail_if_no_peer_cert = !value.nil?
     end
 
     def set_cacertfile(value)
@@ -152,7 +152,7 @@ module URI
     end
 
     def check_vhost(value)
-      raise InvalidComponentError, "bad vhost (expected only leading \"/\"): #{value}" if value && !(value =~ %r{^/[^/]*$})
+      raise InvalidComponentError, "bad vhost (expected only leading \"/\"): #{value}" if value && value !~ %r{^/[^/]*$}
     end
 
     %i[
