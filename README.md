@@ -2,11 +2,9 @@
 [![Build Status](https://travis-ci.org/Tensho/uri-amqp.svg?branch=master)](https://travis-ci.org/Tensho/uri-amqp)
 [![Gem Downloads](https://img.shields.io/gem/dt/uri-amqp.svg)](https://rubygems.org/gems/uri-amqp)
 
-
 # URI::AMQP
 
-[Custom URI](https://ruby-doc.org/stdlib-2.4.2/libdoc/uri/rdoc/URI.html#module-URI-label-Adding+custom+URIs) implementation for AMQP  
-
+[Custom URI](https://ruby-doc.org/stdlib-2.4.2/libdoc/uri/rdoc/URI.html#module-URI-label-Adding+custom+URIs) implementation for AMQP
 
 ## Installation
 
@@ -55,7 +53,7 @@ As any other URI (HTTP, FTP, LDAP) you may call `URI.parse` with string argument
 => false
 > uri.cacertfile
 => nil
-> uri.certfile 
+> uri.certfile
 => "/examples/tls/client_cert.pem"
 > uri.keyfile
 => "/examples/tls/client_key.pem"
@@ -69,7 +67,7 @@ There are also implemented some checks:
 
 > URI.parse("amqp://host/vhost?certfile=/examples/tls/client_cert.pem&keyfile=/examples/tls/client_key.pem")
 => URI::InvalidComponentError: bad certfile (expected only in "amqps" schema): /examples/tls/client_cert.pem
-``` 
+```
 
 ### References
 
